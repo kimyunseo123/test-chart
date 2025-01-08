@@ -32,7 +32,7 @@ svg.append("text")
     .style("font-size", "11px");
 
 // 엑셀 파일 로드
-fetch("취업률.xlsx")
+fetch("data/취업률.xlsx")
     .then(response => response.arrayBuffer())
     .then(data => {
         const workbook = XLSX.read(data, { type: "array" });

@@ -49,7 +49,7 @@ const dropoutG2 = dropoutSvg2.append("g")
     .attr("transform", `translate(${(dropout2Width + dropout2Margin.left) / 2}, ${(dropout2Height + dropout2Margin.top) / 2})`);
 
 // 데이터 로드 및 파이 차트 생성
-fetch("중도탈락.xlsx")
+fetch("data/중도탈락.xlsx")
     .then(response => response.arrayBuffer())
     .then(data => {
         const workbook = XLSX.read(data, { type: "array" });

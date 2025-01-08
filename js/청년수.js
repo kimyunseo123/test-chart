@@ -16,7 +16,7 @@ const youthTooltip = d3.select("body").append("div")
     .style("pointer-events", "none")
     .style("opacity", 0);
 
-fetch("청년수.xlsx")
+fetch("data/청년수.xlsx")
     .then(response => response.arrayBuffer())
     .then(data => {
         const workbook = XLSX.read(data, { type: "array" });

@@ -1,5 +1,5 @@
 const birthSvg = d3.select("#birth-rate-chart");
-const birthMargin = { top: 20, right: 110, bottom: 60, left: 70 };
+const birthMargin = { top: 20, right: 120, bottom: 60, left: 70 };
 const birthWidth = +birthSvg.attr("width") - birthMargin.left - birthMargin.right;
 const birthHeight = +birthSvg.attr("height") - birthMargin.top - birthMargin.bottom;
 const birthG = birthSvg.append("g").attr("transform", `translate(${birthMargin.left},${birthMargin.top})`);
@@ -33,7 +33,7 @@ birthSvg.append("text")
     .style("font-size", "11px");
 
 // 엑셀 파일 로드
-fetch("출산율.xlsx")
+fetch("data/출산율.xlsx")
     .then(response => response.arrayBuffer())
     .then(data => {
         const workbook = XLSX.read(data, { type: "array" });
@@ -114,33 +114,56 @@ fetch("출산율.xlsx")
 
         // 범례 추가
         const legend = birthSvg.append("g")
-            .attr("class", "legend")
-            .attr("transform", `translate(${birthWidth + 105}, ${birthMargin.top -5})`);
+        .attr("class", "legend")
+        .attr("transform", `translate(${birthWidth + 100}, ${birthMargin.top + 3})`);
 
         const legendItems = [...groupedData.keys()];
         legend.selectAll(".legend-item")
-            .data(legendItems)
-            .enter()
-            .append("g")
-            .attr("class", "legend-item")
-            .attr("transform", (d, i) => `translate(0, ${i * 20})`)
-            .each(function(d) {
-                d3.select(this)
-                    .append("rect")
-                    .attr("width", 8)
-                    .attr("height", 8)
-                    .attr("fill", birthColorScale(d));
+        .data(legendItems)
+        .enter()
+        .append("g")
+        .attr("class", "legend-item")
+        .attr("transform", (d, i) => `translate(0, ${i * 20})`)
+        .each(function(d) {
+            d3.select(this)
+                .append("rect")
+                .attr("width", 8)
+                .attr("height", 8)
+                .attr("fill", birthColorScale(d));
 
-                d3.select(this)
-                    .append("text")
-                    .attr("x", 10)
-                    .attr("y", 5)
-                    .attr("text-anchor", "start")
-                    .attr("alignment-baseline", "middle")
-                    .attr("fill", "#555")
-                    .style("font-size", "8px")
-                    .text(d);
-            });
+            d3.select(this)
+                .append("text")
+                .attr("x", 10)
+                .attr("y", 5)
+                .attr("text-anchor", "start")
+                .attr("alignment-baseline", "middle")
+                .attr("fill", "#555")
+                .style("font-size", "10px")
+                .text(d);
+        })
+        .on("mouseover", (event, region) => {
+            // 모든 선과 점을 투명하게 만듦
+            birthG.selectAll(".line")
+                .attr("opacity", 0.1);
+            birthG.selectAll(".birth-point")
+                .attr("opacity", 0.1);
+
+            // 해당 지역의 선과 점만 강조
+            birthG.selectAll(".line")
+                .filter(([key]) => key === region)
+                .attr("opacity", 1);
+
+            birthG.selectAll(".birth-point")
+                .filter(d => d.지역 === region)
+                .attr("opacity", 1);
+        })
+        .on("mouseout", () => {
+            // 모든 선과 점을 원래 상태로 복구
+            birthG.selectAll(".line")
+                .attr("opacity", 0.5);
+            birthG.selectAll(".birth-point")
+                .attr("opacity", 0.7);
+        });
     })
     .catch(error => {
         console.error("Error loading Excel file:", error);
