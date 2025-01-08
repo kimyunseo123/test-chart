@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>practice chart</title>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        h1 {
+            text-align: center;
+            margin-bottom: 10px;
+            margin-top: 50px;
+            font-size: 14px;
+        }
+        .chart-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        svg {
+            border: 1px solid #ccc;
+            background: white;
+        }
+        .charts {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>[ 대학교별 취업률 분포 ]</h1>
+    <div class="chart-container">
+        <svg id="employment-chart" width="800" height="500"></svg>
+    </div>
+
+    <h1>[ 지역별 인구 분포 (아동, 청소년, 청년) ]</h1>
+    <div class="chart-container">
+        <svg id="youth-chart" width="800" height="500"></svg>
+    </div>
+
+    <h1>[ 지역별 출산율 ]</h1>
+    <div class="chart-container">
+        <svg id="birth-rate-chart" width="800" height="500"></svg>
+    </div>
+
+    <h1>[ 순천대 중도탈락 ]</h1>
+    <div class="charts">
+        <svg id="dropout-pie1"></svg>
+        <svg id="dropout-pie2"></svg>
+    </div>
+
+    <!-- JS -->
+    <script src="취업률.js"></script>
+    <script src="청년수.js"></script>
+    <script src="출산율.js"></script>
+    <script src="중도탈락.js"></script>
+</body>
+</html>
