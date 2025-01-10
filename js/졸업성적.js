@@ -1,6 +1,6 @@
 // SVG 및 마진 설정
 const histSvg = d3.select("#histogram-chart");
-const histMargin = { top: 20, right: 30, bottom: 50, left: 50 };
+const histMargin = { top: 20, right: 30, bottom: 70, left: 100 };
 const histWidth = +histSvg.attr("width") - histMargin.left - histMargin.right;
 const histHeight = +histSvg.attr("height") - histMargin.top - histMargin.bottom;
 const histG = histSvg.append("g").attr("transform", `translate(${histMargin.left},${histMargin.top})`);
@@ -62,6 +62,25 @@ fetch("data/졸업성적.xlsx")
         histG.append("g")
             .call(d3.axisLeft(yScale).ticks(11)); 
 
+        // X축 제목 추가
+        histSvg.append("text")
+            .attr("class", "x-axis-label")
+            .attr("x", histMargin.left + histWidth / 2 + 340 ) // 중앙 정렬
+            .attr("y", histMargin.top + histHeight + 40) // 아래쪽 여백
+            .attr("text-anchor", "middle")
+            .style("font-size", "12px")
+            .attr("fill", "#555") 
+            .text("(점)");
+
+        // Y축 제목 추가
+        histSvg.append("text")
+            .attr("class", "y-axis-label")
+            .attr("x", -popMargin.left + 110)
+            .attr("y", 25)
+            .attr("text-anchor", "start")
+            .style("font-size", "12px")
+            .attr("fill", "#555") 
+            .text("(학교 수)");
 
         // 히스토그램 막대 추가
         histG.selectAll("rect")
