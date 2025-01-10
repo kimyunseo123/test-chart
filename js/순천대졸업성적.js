@@ -51,7 +51,7 @@ fetch("data/순천대졸업성적.xlsx")
             .padding(0.2);
 
         const gradYScale = d3.scaleLinear()
-            .domain([60,100])
+            .domain([70,100])
             .range([gradHeight, 0]);
 
         // X축 및 Y축 추가
